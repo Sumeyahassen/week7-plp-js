@@ -1,11 +1,12 @@
 # JavaScript Web Development Examples
 
-This repository contains a collection of practical JavaScript examples demonstrating fundamental web development concepts. The examples are organized into morning and afternoon sessions, each focusing on different aspects of JavaScript and DOM manipulation.
+This repository contains a collection of practical JavaScript examples demonstrating fundamental web development concepts. The examples are organized into morning, afternoon, and evening sessions, each focusing on different aspects of JavaScript and DOM manipulation.
 
 ## Directory Structure
 
 - **`/morning/`** - Basic JavaScript fundamentals and DOM manipulation
 - **`/afternoon/`** - More advanced web applications and interactive examples
+- **`/evening/`** - Advanced JavaScript concepts and applications
 
 ## Morning Examples
 
@@ -77,10 +78,14 @@ A condensed reference of common JavaScript events and event handling patterns:
 - Common event types categorized by interaction type
 - Quick reference for event-driven programming
 
+## Evening Examples
+
+The evening section contains advanced JavaScript concepts and applications. (Content will be updated as examples are added)
+
 ## How to Use
 
 1. Clone or download this repository
-2. Navigate to either the morning or afternoon directory
+2. Navigate to the morning, afternoon, or evening directory
 3. Open any HTML file in a web browser to see the example in action
 4. Review the source code to understand how each example works
 5. Use the events.js files as references for JavaScript event handling

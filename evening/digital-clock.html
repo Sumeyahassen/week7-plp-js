@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+    
+        body {
+          background: radial-gradient(circle at center, #121212, #000000);
+          color: #00fff2;
+          font-family: 'Orbitron', sans-serif;
+          height: 100vh;
+          margin: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+        }
+    
+        h1 {
+          color: #fff;
+          margin-bottom: 30px;
+          font-size: 2.2em;
+        }
+    
+        #clock {
+          font-size: 5rem;
+          padding: 25px 50px;
+          background: #111;
+          border-radius: 15px;
+          box-shadow: 0 0 25px #00fff244, 0 0 60px #00fff277;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+    
+        #clock:hover {
+          color: #ff4081;
+          box-shadow: 0 0 25px #ff408188, 0 0 60px #ff408144;
+        }
+    
+        #controls {
+          margin-top: 30px;
+          display: flex;
+          gap: 15px;
+        }
+    
+        button {
+          padding: 10px 20px;
+          background: #00bcd4;
+          color: white;
+          font-size: 16px;
+          border: none;
+          border-radius: 6px;
+          cursor: pointer;
+          transition: 0.3s ease;
+        }
+    
+        button:hover {
+          background: #0097a7;
+        }
+    
+        #status {
+          margin-top: 15px;
+          color: #ccc;
+          font-size: 14px;
+        }
+      </style>
+</head>
+<body>
+    
+  <h1>🕒 Interactive Digital Clock</h1>
+  <div id="clock" title="Click to toggle format, double-click to pause/resume">00:00:00</div>
+
+  <div id="controls">
+    <button id="toggleFormatBtn">Toggle Format</button>
+    <button id="resetClockBtn">Reset</button>
+  </div>
+
+  <div id="status">Format: 24-hour | Running</div>
+
+
+  <script>
+    let is24Hour = true;
+    let clockInterval;
+    let isRunning = true;
+
+
+    const clockEl = document.getElementById('clock');
+    const statusEl = document.getElementById('status');
+
+    function updateClock() {
+      const now = new Date();
+      let hours = now.getHours();
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      let period = "";
+
+      if (!is24Hour) {
+        period = hours >= 12 ? "PM" : "AM";
+        hours = hours % 12 || 12;
+      }
+
+      hours = String(hours).padStart(2, '0');
+      clockEl.textContent = `${hours}:${minutes}:${seconds}${!is24Hour ? ' ' + period : ''}`;
+    }
+
+
+    function startClock() {
+      if (!clockInterval) {
+        clockInterval = setInterval(updateClock, 1000);
+        isRunning = true;
+        updateStatus();
+      }
+    }
+
+    function stopClock() {
+      clearInterval(clockInterval);
+      clockInterval = null;
+      isRunning = false;
+      updateStatus();
+    }
+
+    function toggleClockRunning() {
+      if (isRunning) {
+        stopClock();
+      } else {
+        startClock();
+      }
+    }
+
+    function toggleFormat() {
+      is24Hour = !is24Hour;
+      updateClock();
+      updateStatus();
+    }
+
+    function resetClock() {
+      is24Hour = true;
+      startClock();
+      updateClock();
+      updateStatus();
+    }
+
+    function updateStatus() {
+      statusEl.textContent = `Format: ${is24Hour ? '24-hour' : '12-hour'} | ${isRunning ? 'Running' : 'Paused'}`;
+    }
+
+
+
+    // events
+    clockEl.addEventListener("click", toggleFormat);
+    clockEl.addEventListener("dblclick", toggleClockRunning);
+
+    const toggleFmtBtn = document.getElementById("toggleFormatBtn");
+    const resetClkBtn = document.getElementById("resetClockBtn");
+
+    toggleFmtBtn.addEventListener("click", toggleFormat);
+    resetClkBtn.addEventListener("click", resetClock);
+
+
+    // Start initially
+    startClock();
+    updateClock();
+
+  </script>
+</body>
+</html>

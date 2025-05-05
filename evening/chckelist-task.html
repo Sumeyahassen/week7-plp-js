@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Checklist</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          max-width: 500px;
+          margin: 50px auto;
+          text-align: center;
+          background-color: black;
+          color: white;
+        }
+        .container{
+            background-color: #4d4343;
+            padding: 30px;
+            border-radius: 20px;
+        }
+        input, button {
+          padding: 10px;
+          font-size: 16px;
+          margin: 5px;
+        }
+        /* .Mylist{
+            background-color: ;
+        } */
+        ul {
+          list-style: none;
+          padding: 0;
+        }
+        li {
+          padding: 10px;
+          background: #4d4343;
+          margin: 5px 0;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .done {
+          text-decoration: line-through;
+          color: green;
+        }
+        .remove-btn {
+          background: red;
+          color: white;
+          border: none;
+          padding: 5px 10px;
+          cursor: pointer;
+        }
+      </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h2>✅ Task Checklist</h2>
+        <input type="text" id="taskInput" placeholder="Enter a task" />
+        <button onclick="addTask()">Add</button>
+        <button onclick="clearAll()">Clear All</button>
+    </div>
+
+    <div class="Mylist">
+        <ul id="taskList"></ul>
+    </div>
+
+    <script>
+        const tskLst = document.getElementById("taskList");
+
+        function addTask(){
+            const input = document.getElementById("taskInput");
+            const task = input.value.trim();
+
+            if(task === ""){
+                alert("Stop joking, do something");
+                return;
+            }
+
+            const myList = document.createElement("li");
+            myList.innerHTML = `
+                <span onClick="toggleDone(this)">${task}</span>
+                <button class="remove-btn" onClick="removeTask(this)">Remove</button>
+            `;
+            tskLst.appendChild(myList);
+            input.value = '';
+
+        }
+
+
+        function toggleDone(span){
+            span.classList.toggle('done');
+        };
+
+        function removeTask(btn){
+            const li = btn.parentElement;
+            tskLst.removeChild(li)
+        };
+
+        function clearAll(){
+            tskLst.innerHTML = '';
+        };
+    </script>
+</body>
+</html>
