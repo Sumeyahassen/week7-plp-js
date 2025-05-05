@@ -1,0 +1,105 @@
+<html>
+
+<head>
+    <title> javascript timer</title>
+    <style>
+        body {
+            background-color: black;
+            font-family: sans-serif;
+            margin: 30px;
+            align-items: center;
+            text-align: center;
+        }
+
+        .contener {
+            margin: 10px;
+            width: 400px;
+            height: 300px;
+            padding: 60px;
+            background-color: wheat;
+            box-shadow: 0 0 30px blue, 0 0 40px pink;
+        }
+
+        .btnclass {
+            display: flex;
+
+        }
+
+        button {
+            font-size: 25px;
+            color: black;
+            background-color: gold;
+            margin: 30px;
+            border: black 5px solid;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: red;
+
+        }
+
+        .timer {
+            font-size: 40px;
+            padding: 30px;
+            box-shadow: 0 0 30px green, 0 0 40px blue;
+            border-radius: 2px;
+        }
+
+        .timer:hover {
+            background-color: lightcoral;
+            box-shadow: 0 0 10px gold, 0 0 20px green;
+            cursor: progress;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="contener">
+        <h1> Digetal timer</h1>
+        <div class="timer" id="timer">00:00:00</div>
+        <div class="btnclass" id="btnid">
+            <button id="start">start</button>
+            <button id="stop">stop</button>
+            <button id="reset">reset</button>
+        </div>
+
+    </div>
+    <script type="text/javascript">
+        let time;
+            let seconds = 0;
+            let isRunning = false;
+
+            function updateClock() {
+                const hours = Math.floor(seconds / 3600);
+                const minutes = Math.floor((seconds % 3600) / 60);
+                const secondsDisplay = seconds % 60;
+                document.getElementById('timer').textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secondsDisplay.toString().padStart(2, '0')}`;
+            }
+
+            document.getElementById('start').addEventListener('click', () => {
+                if (!isRunning) {
+                    isRunning = true;
+                    time = setInterval(() => {
+                        seconds++;
+                        updateClock();
+                    }, 1000);
+                }
+            })
+
+            document.getElementById('stop').addEventListener('click', () => {
+                clearInterval(time);
+                isRunning = false;
+            })
+
+            document.getElementById('reset').addEventListener('click', () => {
+                clearInterval(time);
+                seconds = 0;
+                isRunning = false;
+                updateClock();
+            })
+
+    </script>
+</body>
+
+</html>
